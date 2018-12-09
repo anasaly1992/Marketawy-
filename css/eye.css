@@ -1,0 +1,64 @@
+html {
+  --mouse-x: 0.5;
+  --mouse-y: 0.5;
+}
+
+.eye {
+    margin-top: 40px;
+    display: inline-block;
+    overflow: hidden;
+    width: 24px;
+    height: 24px;
+    font-size: 4vw;
+    background-color: #f9cb62;
+    border: 0.04em solid black;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0.03em 0.14em rgba(0,0,0,0.1);
+    will-change: transform;
+    animation: blink forwards infinite 10s ease-in-out;
+}
+
+.pupil {
+  --pupil-size: 0.6em;
+  --pupil-padding: calc((1em - var(--pupil-size)) / 2);
+  position: absolute;
+  content: ' ';
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: black;
+  box-sizing: border-box;
+  will-change: transform;
+  transition: transform 200ms 300ms ease-in-out;
+  transform: translateX(calc(var(--mouse-x) * var(--pupil-padding) + calc(var(--pupil-padding) / 2))) translateY(calc(var(--mouse-y) * var(--pupil-padding) + calc(var(--pupil-padding) / 2)));
+}
+
+.pupil::after {
+    content: ' ';
+    width: 0.15em;
+    height: 0.15em;
+    -webkit-transform: translateX(-0.05em);
+    transform: translateX(-0.05em);
+    background-color: #fff;
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    right: 2px;
+    bottom: 3px;
+}
+
+html:hover .pupil {
+  transition: none;
+}
+
+@media (min-width: 600px) {
+  .eye {
+    font-size: 1.7vw;
+  }
+}
+
+@keyframes blink { 
+  0%, 2%, 60%, 62%, 100% { transform: scaleX(1) scaleY(1); } 
+  1%, 61% { transform: scaleX(1.3) scaleY(0.1); } 
+}
